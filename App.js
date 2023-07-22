@@ -1,20 +1,39 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import axios from 'axios';
+import React from 'react';
+import { Alert, FlatList, Text } from 'react-native';
+import { Wrapper } from './Styled';
+import Post from './components/Post';
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+	const [items, setItems] = React.useState();
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+	React.useEffect(() => {
+		axios
+			.get('https://64bc008b7b33a35a4446e91b.mockapi.io/news')
+			.then(({ data }) => {
+				setItems(data);
+			})
+			.catch(err => {
+				console.log(err);
+				Alert.alert('Alert', 'Error while getting news');
+			});
+	}, []);
+
+	return (
+		<Wrapper>
+			<Text style={{ color: 'white', marginTop: 55, marginBottom: 5 }}>Back</Text>
+			<FlatList
+				data={items}
+				renderItem={({ item }) => (
+					<Post
+						title={item.title}
+						imageUrl={item.imageUrl}
+						subTitle={item.subTitle}
+						createdAt={item.createdAt}
+						readingTime={item.readingTime}
+					/>
+				)}
+			/>
+		</Wrapper>
+	);
+}
