@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { ActivityIndicator, FlatList, Text, View } from 'react-native';
+import { ActivityIndicator, FlatList, RefreshControl, Text, View } from 'react-native';
 import { Wrapper } from './Styled';
 import Post from './components/Post';
 
@@ -33,6 +33,7 @@ export default function App() {
 					flex: 1,
 					justifyContent: 'center',
 					alignItems: 'center',
+					backgroundColor: '#121212',
 				}}
 			>
 				<ActivityIndicator size={'large'} />
@@ -42,8 +43,17 @@ export default function App() {
 
 	return (
 		<Wrapper>
-			<Text style={{ color: 'white', marginTop: 55, marginBottom: 5 }}>Back</Text>
+			<Text
+				style={{
+					color: 'white',
+					marginTop: 55,
+					marginBottom: 5,
+				}}
+			>
+				Go back
+			</Text>
 			<FlatList
+				refreshControl={<RefreshControl tintColor={'white'} refreshing={isLoading} onRefresh={fetchPosts} />}
 				data={items}
 				renderItem={({ item }) => (
 					<Post
