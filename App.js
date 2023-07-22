@@ -31,13 +31,15 @@ export default function App() {
 	return (
 		<Wrapper>
 			<Text style={{ color: 'white', marginTop: 55, marginBottom: 5 }}>Back</Text>
-			<Post
-				title={title}
-				imageUrl={imageUrl}
-				subTitle={subTitle}
-				createdAt={createdAt}
-				readingTime={readingTime}
-			/>
+			{items.map(({ title, imageUrl, subTitle, createdAt, readingTime }) => (
+				<Post
+					title={title}
+					imageUrl={imageUrl}
+					subTitle={subTitle}
+					createdAt={createdAt}
+					readingTime={readingTime}
+				/>
+			))}
 		</Wrapper>
 	);
 }

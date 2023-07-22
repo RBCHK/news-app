@@ -12,7 +12,7 @@ const Post = ({ title, subTitle, readingTime, createdAt, imageUrl }) => {
 				<Title>{title}</Title>
 				<Subtitle>{subTitle}</Subtitle>
 				<PostDetails>
-					<ReadingTime>{readingTime}</ReadingTime>
+					<ReadingTime>{readingTime} min</ReadingTime>
 					<CreatedAt>{createdAt}</CreatedAt>
 				</PostDetails>
 			</PostTextWrapper>

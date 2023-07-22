@@ -28,7 +28,7 @@ export const Subtitle = styled.Text`
 `;
 
 export const PostDetails = styled.View`
-	/* display: flex; */
+	/* justify-content: center; */
 `;
 
 export const ReadingTime = styled.Text`
