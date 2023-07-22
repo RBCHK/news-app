@@ -1,13 +1,15 @@
 import axios from 'axios';
-import React from 'react';
-import { Alert, FlatList, Text } from 'react-native';
+import { useEffect, useState } from 'react';
+import { ActivityIndicator, FlatList, Text, View } from 'react-native';
 import { Wrapper } from './Styled';
 import Post from './components/Post';
 
 export default function App() {
-	const [items, setItems] = React.useState();
+	const [items, setItems] = useState();
+	const [isLoading, setIsLoading] = useState(true);
 
-	React.useEffect(() => {
+	const fetchPosts = () => {
+		setIsLoading(true);
 		axios
 			.get('https://64bc008b7b33a35a4446e91b.mockapi.io/news')
 			.then(({ data }) => {
@@ -16,8 +18,27 @@ export default function App() {
 			.catch(err => {
 				console.log(err);
 				Alert.alert('Alert', 'Error while getting news');
+			})
+			.finally(() => {
+				setIsLoading(false);
 			});
-	}, []);
+	};
+
+	useEffect(fetchPosts, []);
+
+	if (isLoading) {
+		return (
+			<View
+				style={{
+					flex: 1,
+					justifyContent: 'center',
+					alignItems: 'center',
+				}}
+			>
+				<ActivityIndicator size={'large'} />
+			</View>
+		);
+	}
 
 	return (
 		<Wrapper>
